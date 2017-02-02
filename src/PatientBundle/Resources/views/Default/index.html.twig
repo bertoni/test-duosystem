@@ -75,7 +75,7 @@
           
           <div id="form">
             <h2 class="sub-header">Cadastrar Novo</h2>
-            <form class="form-signin" action="{{path('patient_add')}}">
+            <form id="form-paciente" class="form-signin" action="{{path('patient_add')}}" method="POST">
                 <fieldset>
                     <label for="nome" class="sr-only">Nome</label>
                     <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Paciente" required="" autofocus="">

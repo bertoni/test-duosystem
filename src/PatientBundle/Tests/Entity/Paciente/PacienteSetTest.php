@@ -82,6 +82,17 @@ class PacienteSetTest extends CommomTest
             . 'agiabo871816wgd 1yhb 987q 7tsv usy bi8yag8s711 bdibhsihyasya7g i1b ei1hd789qydasya7ys8ahd d biuh1iw7uydhsya87 abd hsgd12h bueh1g'
         );
     }
+
+    /**
+     * @expectedException Exception
+     *
+     * @access public
+     * @return void
+     */
+    public function testSetRepeat3LettersNome()
+    {
+        self::$Paciente->setNome('Arnaldo Berrrtoni Júnior');
+    }
     
     /**
      * @access public
@@ -127,6 +138,17 @@ class PacienteSetTest extends CommomTest
             . 'agiabo871816wgd 1yhb 987q 7tsv usy bi8yag8s711 bdibhsihyasya7g i1b ei1hd789qydasya7ys8ahd d biuh1iw7uydhsya87 abd hsgd12h bueh1g'
         );
     }
+
+    /**
+     * @expectedException Exception
+     *
+     * @access public
+     * @return void
+     */
+    public function testSetRepeat3LettersNomeMae()
+    {
+        self::$Paciente->setNomeMae('Rita   de Cássia');
+    }
     
     /**
      * @access public
@@ -171,6 +193,17 @@ class PacienteSetTest extends CommomTest
             'ioij09i1j0di1jj1 1 09191h91 h1w181 1wuh 19hd91uh9u1hd 1h d91h 1hw 9jhu 1h du1h 8w 18whd 81ygd 81h 1b w8d 18wd 1wd 91d h81d81nd8uh9ajs88c'
             . 'agiabo871816wgd 1yhb 987q 7tsv usy bi8yag8s711 bdibhsihyasya7g i1b ei1hd789qydasya7ys8ahd d biuh1iw7uydhsya87 abd hsgd12h bueh1g'
         );
+    }
+
+    /**
+     * @expectedException Exception
+     *
+     * @access public
+     * @return void
+     */
+    public function testSetRepeat3LettersNomePai()
+    {
+        self::$Paciente->setNomePai('Arnaldo Bertoniii');
     }
     
     /**

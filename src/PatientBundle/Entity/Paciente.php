@@ -102,6 +102,11 @@ class Paciente
         if (strlen($nome) > 255) {
             throw new \Exception('Nome informado excede os 255 caracteres');
         }
+        try {
+            $this->_validateName($nome);
+        } catch (\Exception $e) {
+            throw $e;
+        }
         $this->nome = $nome;
 
         return $this;
@@ -133,6 +138,11 @@ class Paciente
         if (strlen($nomeMae) > 255) {
             throw new \Exception('Nome da mãe informado excede os 255 caracteres');
         }
+        try {
+            $this->_validateName($nomeMae);
+        } catch (\Exception $e) {
+            throw $e;
+        }
         $this->nome_mae = $nomeMae;
 
         return $this;
@@ -163,6 +173,11 @@ class Paciente
         }
         if (strlen($nomePai) > 255) {
             throw new \Exception('Nome do pai informado excede os 255 caracteres');
+        }
+        try {
+            $this->_validateName($nomePai);
+        } catch (\Exception $e) {
+            throw $e;
         }
         $this->nome_pai = $nomePai;
 
@@ -306,5 +321,31 @@ class Paciente
     public function getEnderecos()
     {
         return $this->enderecos;
+    }
+
+    /**
+     * Validate name
+     * 
+     * @param string $name
+     *
+     * @return void
+     * @throws \Exception
+     */
+    private function _validateName($name)
+    {
+        $last     = null;
+        $quantity = 1;
+        $lenth    = strlen($name);
+        for ($i=0; $i<$lenth; $i++) {
+            if ($last == $name[$i]) {
+                $quantity++;
+                if ($quantity > 2) {
+                    throw new \Exception('Não é permitido o uso de letras iguais');
+                }
+            } else {
+                $last     = $name[$i];
+                $quantity = 1;
+            }
+        }
     }
 }

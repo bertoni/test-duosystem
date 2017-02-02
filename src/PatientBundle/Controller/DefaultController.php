@@ -106,6 +106,10 @@ class DefaultController extends Controller
         }
         
         try {
+            $Enderecos = $Paciente->getEnderecos();
+            foreach ($Enderecos as $Endereco) {
+                $this->getDoctrine()->getEntityManager()->remove($Endereco);
+            }
             $this->getDoctrine()->getEntityManager()->remove($Paciente);
             $this->getDoctrine()->getEntityManager()->flush();
         } catch (\Exception $e) {
