@@ -71,9 +71,16 @@ class Endereco
      * @param string $rua
      *
      * @return Endereco
+     * @throws Exception
      */
     public function setRua($rua)
     {
+        if (strlen($rua) < 1) {
+            throw new \Exception('Rua não informada');
+        }
+        if (strlen($rua) > 255) {
+            throw new \Exception('Rua informada excede os 255 caracteres');
+        }
         $this->rua = $rua;
 
         return $this;
@@ -95,9 +102,16 @@ class Endereco
      * @param string $nomeBairro
      *
      * @return Endereco
+     * @throws Exception
      */
     public function setNomeBairro($nomeBairro)
     {
+        if (strlen($nomeBairro) < 1) {
+            throw new \Exception('Bairro não informado');
+        }
+        if (strlen($nomeBairro) > 255) {
+            throw new \Exception('Bairro informado excede os 255 caracteres');
+        }
         $this->nome_bairro = $nomeBairro;
 
         return $this;
@@ -119,9 +133,13 @@ class Endereco
      * @param boolean $status
      *
      * @return Endereco
+     * @throws Exception
      */
     public function setStatus($status)
     {
+        if (!is_bool($status)) {
+            throw new \Exception('Status informado incorreto');
+        }
         $this->status = $status;
 
         return $this;
@@ -140,12 +158,16 @@ class Endereco
     /**
      * Set data
      *
-     * @param \DateTime $data
+     * @param DateTime $data
      *
      * @return Endereco
+     * @throws Exception
      */
     public function setData($data)
     {
+        if (!$data instanceof \DateTime) {
+            throw new \Exception('Data informada incorreta');
+        }
         $this->data = $data;
 
         return $this;
@@ -154,7 +176,7 @@ class Endereco
     /**
      * Get data
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getData()
     {

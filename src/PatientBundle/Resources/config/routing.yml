@@ -1,3 +1,13 @@
 patient_homepage:
     path:     /
     defaults: { _controller: PatientBundle:Default:index }
+
+patient_add:
+    path:     /cadastrar
+    defaults: { _controller: PatientBundle:Default:add }
+    methods:  [POST]
+
+patient_remove:
+    path:     /remover/{paciente_id}
+    defaults: { _controller: PatientBundle:Default:remove }
+    requirements: {paciente_id: \d+}

@@ -14,6 +14,9 @@
 
 namespace PatientBundle\Entity;
 
+use Symfony\Component\Validator\ValidatorBuilder as Validator;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
+
 /**
  * Paciente class
  *
@@ -57,6 +60,10 @@ class Paciente
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $enderecos;
+    /**
+     * @var \Symfony\Component\Validator\Validator
+     */
+    protected $validator;
 
     /**
      * Constructor
@@ -64,6 +71,9 @@ class Paciente
     public function __construct()
     {
         $this->enderecos = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        $factory         = new Validator;
+        $this->validator = $factory->getValidator();
     }
 
     /**
@@ -82,9 +92,16 @@ class Paciente
      * @param string $nome
      *
      * @return Paciente
+     * @throws Exception
      */
     public function setNome($nome)
     {
+        if (strlen($nome) < 1) {
+            throw new \Exception('Nome não informado');
+        }
+        if (strlen($nome) > 255) {
+            throw new \Exception('Nome informado excede os 255 caracteres');
+        }
         $this->nome = $nome;
 
         return $this;
@@ -106,9 +123,16 @@ class Paciente
      * @param string $nomeMae
      *
      * @return Paciente
+     * @throws Exception
      */
     public function setNomeMae($nomeMae)
     {
+        if (strlen($nomeMae) < 1) {
+            throw new \Exception('Nome da mãe não informado');
+        }
+        if (strlen($nomeMae) > 255) {
+            throw new \Exception('Nome da mãe informado excede os 255 caracteres');
+        }
         $this->nome_mae = $nomeMae;
 
         return $this;
@@ -130,9 +154,16 @@ class Paciente
      * @param string $nomePai
      *
      * @return Paciente
+     * @throws Exception
      */
     public function setNomePai($nomePai)
     {
+        if (strlen($nomePai) < 1) {
+            throw new \Exception('Nome do pai não informado');
+        }
+        if (strlen($nomePai) > 255) {
+            throw new \Exception('Nome do pai informado excede os 255 caracteres');
+        }
         $this->nome_pai = $nomePai;
 
         return $this;
@@ -154,9 +185,21 @@ class Paciente
      * @param string $email
      *
      * @return Paciente
+     * @throws Exception
      */
     public function setEmail($email)
     {
+        if (strlen($email) < 1) {
+            throw new \Exception('Email não informado');
+        }
+        if (strlen($email) > 255) {
+            throw new \Exception('Email informado excede os 255 caracteres');
+        }
+        $emailConstraint = new EmailConstraint();
+        $errors          = $this->validator->validateValue($email, $emailConstraint);
+        if (count($errors) > 0) {
+            throw new \Exception((string)$errors);
+        }
         $this->email = $email;
 
         return $this;
@@ -178,9 +221,13 @@ class Paciente
      * @param boolean $status
      *
      * @return Paciente
+     * @throws Exception
      */
     public function setStatus($status)
     {
+        if (!is_bool($status)) {
+            throw new \Exception('Status informado incorreto');
+        }
         $this->status = $status;
 
         return $this;
@@ -199,12 +246,16 @@ class Paciente
     /**
      * Set data
      *
-     * @param \DateTime $data
+     * @param DateTime $data
      *
      * @return Paciente
+     * @throws Exception
      */
     public function setData($data)
     {
+        if (!$data instanceof \DateTime) {
+            throw new \Exception('Data informada incorreta');
+        }
         $this->data = $data;
 
         return $this;
@@ -213,7 +264,7 @@ class Paciente
     /**
      * Get data
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getData()
     {
