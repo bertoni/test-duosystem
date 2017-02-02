@@ -1,0 +1,28 @@
+# src/PatientBundle/Resources/config/doctrine/Endereco.orm.yml
+PatientBundle\Entity\Endereco:
+    type: entity
+    table: endereco
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        rua:
+            type: text
+            length: 255
+        nome_bairro:
+            type: text
+            length: 255
+        status:
+            type: boolean
+        data:
+            type: datetime
+        paciente_id:
+            type: integer
+    manyToOne:
+        paciente:
+          targetEntity: Paciente
+          inversedBy: enderecos
+          joinColumn:
+            name: paciente_id
+            referencedColumnName: id

@@ -1,0 +1,29 @@
+# src/PatientBundle/Resources/config/doctrine/Paciente.orm.yml
+PatientBundle\Entity\Paciente:
+    type: entity
+    table: paciente
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        nome:
+            type: text
+            length: 255
+        nome_mae:
+            type: text
+            length: 255
+        nome_pai:
+            type: text
+            length: 255
+        email:
+            type: text
+            length: 255
+        status:
+            type: boolean
+        data:
+            type: datetime
+    oneToMany:
+        enderecos:
+          targetEntity: Endereco
+          mappedBy: paciente

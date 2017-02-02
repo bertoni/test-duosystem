@@ -1,0 +1,3 @@
+patient_homepage:
+    path:     /
+    defaults: { _controller: PatientBundle:Default:index }
